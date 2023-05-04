@@ -26,19 +26,23 @@
         <section>
             <div>
                 <label>Name:</label>
-                <span id="Jeffrey Castro"></span>
+                <span id="name">Jeffrey Castro</span>
             </div>
             <div>
                 <label>Favorite Foods:</label>
-                <span id="pizza, pasta, ice cream, sushi"></span>
+                <span id="favoriteFoods">pizza, pasta, ice cream, sushi</span>
             </div>
         </section>
     </main>
     <footer>
-        &copy;<span id="2023"></span> | Biography | Lesson 2
+        &copy;<span id="currentYear"></span> | Biography | Lesson 2
     </footer>
     <script src="scripts/main.js"></script>
     <script src="scripts/task2.js"></script>
+    <script>
+        // Set the current year in the footer
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>
