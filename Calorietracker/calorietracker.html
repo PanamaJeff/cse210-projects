@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Workout Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .form-control {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #007BFF;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #0056b3;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Workout Tracker</h1>
+
+    <form id="workoutForm">
+      <label for="calories">Calories burned:</label><br>
+      <input class="form-control" type="number" id="calories" name="calories"><br>
+      <input class="btn" type="submit" value="Add workout">
+    </form>
+
+    <h2>This week's total calories burned:</h2>
+    <p id="totalCalories"></p>
+
+    <button class="btn" id="sendData">Send data to server</button>
+    <button class="btn" id="fetchData">Fetch data from server</button>
+  </div>
+
+  <script src="YourJavaScriptFile.js"></script>
+  <script>
+    let user = new User('John');
+    document.getElementById('workoutForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      let calories = document.getElementById('calories').value;
+      user.addWorkout(new Workout(calories));
+      document.getElementById('totalCalories').textContent = user.totalCaloriesThisWeek();
+    });
+    document.getElementById('sendData').addEventListener('click', function () {
+      user.sendData();
+    });
+    document.getElementById('fetchData').addEventListener('click', function () {
+      user.fetchData();
+    });
+  </script>
+</body>
+
+</html>
