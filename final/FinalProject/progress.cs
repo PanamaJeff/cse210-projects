@@ -82,6 +82,6 @@ public class Program
         // Display the books
         library.DisplayBooks();
 
-        // TODO: Add further functionality and interactions in the Main method
+        // TODO: Add more functionality to the main method
     }
 }
