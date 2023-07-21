@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Book
 {
@@ -190,31 +191,122 @@ public class Program
         library.AddPerson(new Librarian("John Doe", 1, "Librarian"));
         library.AddPerson(new Member("Jane Smith", 2));
 
-        // Find a book and a member
-        Book book = library.FindBookByTitle("The Great Gatsby");
-        Member member = library.FindPersonByName("Jane Smith") as Member;
-
-        if (book == null)
+        while (true)
         {
-            Console.WriteLine("Book not found.");
-            return;
-        }
+            Console.WriteLine("1. Borrow a book");
+            Console.WriteLine("2. Return a book");
+            Console.WriteLine("3. Add a book");
+            Console.WriteLine("4. Add a person");
+            Console.WriteLine("5. Exit");
+            Console.Write("Enter your choice: ");
+            var choice = Console.ReadLine();
 
-        if (member == null)
-        {
-            Console.WriteLine("Member not found.");
-            return;
-        }
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Enter the name of the book: ");
+                    string bookTitle = Console.ReadLine();
 
-        // Have the member borrow the book
-        member.BorrowBook(book);
+                    Console.Write("Enter the name of the member: ");
+                    string memberName = Console.ReadLine();
 
-        Console.WriteLine($"{member.Name} has borrowed {book.Title}.");
+                    Book book = library.FindBookByTitle(bookTitle);
+                    Member member = library.FindPersonByName(memberName) as Member;
 
-        // Display roles
-        foreach (Person person in library.GetPeople())
-        {
-            person.DisplayRole();
+                    if (book == null)
+                    {
+                        Console.WriteLine("Book not found.");
+                        continue;
+                    }
+
+                    if (member == null)
+                    {
+                        Console.WriteLine("Member not found.");
+                        continue;
+                    }
+
+                    // Have the member borrow the book
+                    member.BorrowBook(book);
+
+                    Console.WriteLine($"{member.Name} has borrowed {book.Title}.");
+                    break;
+
+                case "2":
+                    Console.Write("Enter the name of the book: ");
+                    bookTitle = Console.ReadLine();
+
+                    Console.Write("Enter the name of the member: ");
+                    memberName = Console.ReadLine();
+
+                    book = library.FindBookByTitle(bookTitle);
+                    member = library.FindPersonByName(memberName) as Member;
+
+                    if (book == null)
+                    {
+                        Console.WriteLine("Book not found.");
+                        continue;
+                    }
+
+                    if (member == null)
+                    {
+                        Console.WriteLine("Member not found.");
+                        continue;
+                    }
+
+                    // Have the member return the book
+                    member.ReturnBook(book);
+
+                    Console.WriteLine($"{member.Name} has returned {book.Title}.");
+                    break;
+
+                case "3":
+                    Console.Write("Enter the title of the book: ");
+                    string title = Console.ReadLine();
+
+                    Console.Write("Enter the author of the book: ");
+                    string author = Console.ReadLine();
+
+                    Console.Write("Enter the ISBN of the book: ");
+                    string isbn = Console.ReadLine();
+                     // Here we're assuming all new books are fiction, you could add more options to handle other categories
+                    library.AddBook(new Book(title, author, isbn, fiction));
+                    Console.WriteLine("Book added successfully.");
+                    break;
+
+                case "4":
+                    Console.Write("Enter the name of the person: ");
+                    string name = Console.ReadLine();
+
+                    Console.Write("Enter the role of the person (1- Librarian, 2- Member): ");
+                    string role = Console.ReadLine();
+
+                    if (role == "1")
+                    {
+                        Console.Write("Enter the position of the Librarian: ");
+                        string position = Console.ReadLine();
+                        library.AddPerson(new Librarian(name, library.GetPeople().Count() + 1, position));
+                    }
+                    else if (role == "2")
+                    {
+                        library.AddPerson(new Member(name, library.GetPeople().Count() + 1));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid role selected.");
+                        continue;
+                    }
+
+                    Console.WriteLine("Person added successfully.");
+                    break;
+
+                case "5":
+                    Environment.Exit(0);
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
         }
     }
 }
